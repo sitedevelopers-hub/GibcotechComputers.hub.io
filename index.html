@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gibcotech Computers - Computers, laptops, accessories, repairs and IT solutions.">
+    <title>Gibcotech Computers | Technology Made Simple</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/logo.png">
+</head>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const elements = document.querySelectorAll(
+        ".hero-content, .hero-image, .category-card, " +
+        ".section-heading, .about-grid > *, .product-card, " +
+        ".service-card, .contact-grid > *"
+    );
+
+    if (!("IntersectionObserver" in window)) {
+        return;
+    }
+
+    elements.forEach(function (element) {
+        element.classList.add("reveal");
+    });
+
+    const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.12
+    });
+
+    elements.forEach(function (element) {
+        observer.observe(element);
+    });
+});
+</script>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container nav-container">
+            <a href="#home" class="brand">
+                <img src="images/logo.png" alt="Gibcotech Computers Logo">
+                <span>Gibcotech <strong>Computers</strong></span>
+            </a>
+
+            <button class="menu-toggle" id="menuToggle"
+                    aria-label="Open navigation" aria-expanded="false">
+                ☰
+            </button>
+
+            <nav class="nav" id="mainNav">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#products">Products</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <a href="#" class="btn btn-small whatsapp-link">WhatsApp Us</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero" id="home">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <span class="eyebrow">YOUR TRUSTED TECHNOLOGY PARTNER</span>
+                    <h1>Technology Made Simple. <span>Solutions Made Reliable.</span></h1>
+                    <p>
+                        Discover computers, laptops, accessories and dependable
+                        IT services to keep you connected, productive and ahead.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="#products" class="btn">Explore Products</a>
+                        <a href="#services" class="btn btn-outline">Our Services</a>
+                    </div>
+
+                    <div class="hero-points">
+                        <span>✓ Quality technology</span>
+                        <span>✓ Helpful support</span>
+                        <span>✓ Easy WhatsApp orders</span>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <img src="images/products.png" alt="Gibcotech Computers">
+                    <div class="floating-card">
+                        <span class="status-dot"></span>
+                        Your Technology Partner
+                    </div>
+                </div>                                                                      
+            </div>
+        </section>
+
+        <!-- CATEGORIES -->
+        <section class="categories">
+            <div class="container category-grid">
+                <a href="#products" class="category-card">
+                    <span class="category-icon">💻</span>
+                    <h3>Laptops & PCs</h3>
+                    <p>Technology for work and home</p>
+                </a>
+
+                <a href="#products" class="category-card">
+                    <span class="category-icon">⌨️</span>
+                    <h3>Accessories</h3>
+                    <p>Everyday computer essentials</p>
+                </a>
+
+                <a href="#services" class="category-card">
+                    <span class="category-icon">🛠️</span>
+                    <h3>Computer Repairs</h3>
+                    <p>Technical help when you need it</p>
+                </a>
+
+                <a href="#services" class="category-card">
+                    <span class="category-icon">🌐</span>
+                    <h3>IT Solutions</h3>
+                    <p>Networking and installations</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="section" id="about">
+            <div class="container about-grid">
+                <div class="about-logo">
+                    <img src="images/repairs.png" alt="Gibcotech Computers logo">
+                </div>
+
+                <div>
+                    <span class="eyebrow">ABOUT GIBCOTECH</span>
+                    <h2>Technology You Can <span>Count On</span></h2>
+                    <p>
+                        Gibcotech Computers is focused on helping individuals,
+                        students and businesses access computer products and
+                        practical technology solutions.
+                    </p>
+                    <p>
+                        From computer accessories to maintenance and IT support,
+                        our goal is to make technology easier to use.
+                    </p>
+                    <a href="#contact" class="text-link">Get in touch →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTS -->
+        <section class="section products-section" id="products">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">OUR PRODUCTS</span>
+                    <h2>Explore Our <span>Products</span></h2>
+                    <p>Find the technology and accessories you need.</p>
+                </div>
+
+                <div class="product-tools">
+                    <input type="search" id="productSearch"
+                           placeholder="Search products..."
+                           aria-label="Search products">
+
+                    <select id="categoryFilter" aria-label="Filter by category">
+                        <option value="all">All Categories</option>
+                        <option value="Computers">Computers</option>
+                        <option value="Accessories">Accessories</option>
+                        <option value="Networking">Networking</option>
+                        <option value="Storage">Storage</option>
+                    </select>
+                </div>
+
+                <div class="product-grid" id="productGrid">
+                    <!-- Products are loaded by script.js -->
+                </div>
+
+                <p class="demo-note">
+                    Product examples are for demonstration. Confirm availability
+                    and prices with us on WhatsApp.
+                </p>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section class="section services-section" id="services">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">WHAT WE DO</span>
+                    <h2>Our IT <span>Services</span></h2>
+                    <p>Practical support for your computers and technology.</p>
+                </div>
+
+                <div class="services-grid">
+                    <article class="service-card">
+                        <div class="service-icon">🔧</div>
+                        <h3>Computer Repair</h3>
+                        <p>Hardware checks, troubleshooting and computer maintenance.</p>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon">💿</div>
+                        <h3>Software Installation</h3>
+                        <p>Operating systems, drivers and software setup.</p>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon">📡</div>
+                        <h3>Networking</h3>
+                        <p>Basic network setup, connectivity support and configuration.</p>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon">🛡️</div>
+                        <h3>IT Support</h3>
+                        <p>Technical assistance,software installations, system checks and maintenance ,repairs and guidance.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="section contact-section" id="contact">
+            <div class="container contact-grid">
+                <div>
+                    <span class="eyebrow">CONTACT US</span>
+                    <h2>Let's Talk <span>Technology</span></h2>
+                    <p>
+                        Looking for a computer, an accessory or technical support?
+                        Contact us on WhatsApp to make an enquiry.
+                    </p>
+                    <div class="contact-detail">
+                        <strong>Business:</strong> Gibcotech Computers
+                    </div>
+                    <div class="contact-detail">
+                        <strong>Phone / WhatsApp:</strong>
+                        <span id="phoneDisplay">0727390243</span>
+                    </div>
+                    <div class="contact-detail">
+                        <strong>Location:</strong>
+                        <span id="locationDisplay">Kitengela, Milele center shop Number 1014/22 / KCA building,Groud floor near National Bank</span>
+                    </div>
+                    <a href="#" class="btn whatsapp-link">Chat With Us on WhatsApp</a>
+                </div>
+
+                <div class="contact-card">
+                    <img src="images/logo.png" alt="" class="contact-logo">
+                    <h3>Gibcotech Computers</h3>
+                    <p>Computers • Accessories • Repairs • IT Solutions</p>
+                    <p class="contact-highlight">We're ready to help with your technology needs.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>© <span id="currentYear"></span> Gibcotech Computers. All rights reserved.</p>
+            <a href="#home">Back to top ↑</a>
+        </div>
+    </footer>
+
+    <a href="#" class="floating-whatsapp whatsapp-link"
+       aria-label="Contact Gibcotech Computers on WhatsApp">☏</a>
+
+    <script src="script.js"></script>
+</body>
+</html>
