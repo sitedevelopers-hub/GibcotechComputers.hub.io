@@ -50,16 +50,12 @@ button, input, select {
   width: min(1160px, 92%);
   margin: 0 auto;
 }
-
-/* 1. Make the navigation bar float transparently over your image */
 .header {
-  background: transparent;  /* Removes the solid white background box */
-  position: absolute;       /* Pulls the header out of the normal layout so the image can slide underneath it */
+  background: var(--white);
+  position: sticky;
   top: 0;
-  left: 0;
-  width: 100%;
   z-index: 1000;
-  border-bottom: none;      /* Removes the gray line under the menu */
+  border-bottom: 1px solid var(--border);
 }
 .nav-container {
   min-height: 82px;
@@ -149,19 +145,11 @@ button, input, select {
   font-size: 28px;
   cursor: pointer;
 }
-/* 2. Apply your custom photo across the entire section */
+
 .hero {
-    position: relative;
-    /* Added 150px padding to the top so your text doesn't bump into your floating navigation menu */
-    padding: 150px 0 85px 0; 
-    overflow: hidden;
-    
-    /* Connects your own photo file here. Change extension to .png if your file is a JPEG */
-    background: url("images/background.png"); 
-    
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+   background: linear-gradient(120deg, #f4f8ff 0%, #ffffff 55%, #e8faff 100%);
+   padding: 85px 0;
+   overflow: hidden;
 }
 
 }
