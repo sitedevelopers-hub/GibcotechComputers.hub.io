@@ -149,11 +149,23 @@ button, input, select {
 }
 
 
-
 .hero {
-  background: linear-gradient(120deg, #f4f8ff 0%, #ffffff 55%, #e8faff 100%);
-  padding: 85px 0;
-  overflow: hidden;
+    position: relative;
+    background:
+        linear-gradient(
+            rgba(255, 255, 255, 0.72),
+            rgba(255, 255, 255, 0.72)
+        ),
+        url("images/home-background.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    padding: 85px 0;
+    overflow: hidden;
+}
+
 }
 
 .hero-grid {
