@@ -149,23 +149,19 @@ button, input, select {
   font-size: 28px;
   cursor: pointer;
 }
-
-
+/* 2. Apply your custom photo across the entire section */
 .hero {
     position: relative;
-    background:
-        linear-gradient(
-            rgba(255, 255, 255, 0.72),
-            rgba(255, 255, 255, 0.72)
-        ),
-        url("images/background.png");
-
+    /* Added 150px padding to the top so your text doesn't bump into your floating navigation menu */
+    padding: 150px 0 85px 0; 
+    overflow: hidden;
+    
+    /* Connects your own photo file here. Change extension to .jpg if your file is a JPEG */
+    background: url("images/my-background.png"); 
+    
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
-    padding: 85px 0;
-    overflow: hidden;
 }
 
 }
