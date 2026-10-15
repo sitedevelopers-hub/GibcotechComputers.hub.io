@@ -51,14 +51,16 @@ button, input, select {
   margin: 0 auto;
 }
 
+/* 1. Make the navigation bar float transparently over your image */
 .header {
-  background: var(--white);
-  position: sticky;
+  background: transparent;  /* Removes the solid white background box */
+  position: absolute;       /* Pulls the header out of the normal layout so the image can slide underneath it */
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 1000;
-  border-bottom: 1px solid var(--border);
+  border-bottom: none;      /* Removes the gray line under the menu */
 }
-
 .nav-container {
   min-height: 82px;
   display: flex;
