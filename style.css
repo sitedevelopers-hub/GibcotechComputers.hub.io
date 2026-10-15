@@ -156,8 +156,8 @@ button, input, select {
     padding: 150px 0 85px 0; 
     overflow: hidden;
     
-    /* Connects your own photo file here. Change extension to .jpg if your file is a JPEG */
-    background: url("images/my-background.png"); 
+    /* Connects your own photo file here. Change extension to .png if your file is a JPEG */
+    background: url("images/background.png"); 
     
     background-size: cover;
     background-position: center;
