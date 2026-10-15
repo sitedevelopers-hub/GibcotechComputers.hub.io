@@ -69,7 +69,7 @@ const phoneDisplay = document.getElementById("phoneDisplay");
 
 function getWhatsAppUrl(message) {
     const phoneDigits = (
-        phoneDisplay?.textContent || "0727390243"
+        phoneDisplay?.textContent || "0799201861"
     ).replace(/\D/g, "");
 
     const internationalPhone = phoneDigits.startsWith("0")
