@@ -344,9 +344,6 @@ h2 span {
 .showcase-track {
   display: flex;
   width: max-content;
-}
-
-.showcase-track.is-animated {
   animation: showcase-marquee 65s linear infinite;
 }
 
@@ -1360,7 +1357,7 @@ h2 span {
         animation: none;
     }
 
-    .showcase-track.is-animated {
+    .showcase-track {
         animation: none;
     }
 
