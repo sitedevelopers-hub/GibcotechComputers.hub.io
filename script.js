@@ -275,3 +275,4 @@ mainNav?.querySelectorAll("a").forEach((link) => {
         menuToggle?.setAttribute("aria-label", "Open navigation");
     });
 });
+
