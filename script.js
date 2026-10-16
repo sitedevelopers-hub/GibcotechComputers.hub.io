@@ -1,5 +1,5 @@
 
-const products = [
+const localProducts = [
     {
         name: "Hikvision CCTV Cameras",
         category: "Security",
@@ -62,10 +62,13 @@ const products = [
     }
 ];
 
+let products = localProducts;
+let liveProductsLoaded = false;
 const productGrid = document.getElementById("productGrid");
 const productSearch = document.getElementById("productSearch");
 const categoryFilter = document.getElementById("categoryFilter");
 const phoneDisplay = document.getElementById("phoneDisplay");
+const productStatus = document.getElementById("productStatus");
 
 function getWhatsAppUrl(message) {
     const phoneDigits = (
@@ -158,8 +161,9 @@ function renderProducts() {
     if (visibleProducts.length === 0) {
         const emptyMessage = document.createElement("p");
         emptyMessage.className = "no-products";
-        emptyMessage.textContent =
-            "No products match your search. Try another term or category.";
+        emptyMessage.textContent = liveProductsLoaded && !searchTerm && selectedCategory === "all"
+            ? "No products have been added yet."
+            : "No products match your search. Try another term or category.";
 
         productGrid.append(emptyMessage);
         return;
@@ -184,8 +188,54 @@ function populateCategoryFilter() {
     });
 }
 
+function showProductStatus(message, type = "info") {
+    if (!productStatus) return;
+    productStatus.textContent = message;
+    productStatus.dataset.type = type;
+    productStatus.hidden = !message;
+}
+
+async function loadProductsFromSupabase() {
+    const config = window.GIBCOTECH_SUPABASE;
+    if (!config?.url || !config?.anonKey) return;
+
+    if (!window.supabase?.createClient) {
+        showProductStatus(
+            "Live products could not load because the Supabase client is unavailable. Showing the saved sample products.",
+            "error"
+        );
+        return;
+    }
+
+    try {
+        const client = window.supabase.createClient(config.url, config.anonKey);
+        const { data, error } = await client
+            .from("products")
+            .select("id, name, category, price, description, image_url")
+            .order("created_at", { ascending: false });
+
+        if (error) throw error;
+
+        products = (data || []).map((product) => ({
+            ...product,
+            image: product.image_url,
+            price: Number(product.price)
+        }));
+        liveProductsLoaded = true;
+        populateCategoryFilter();
+        renderProducts();
+        showProductStatus("");
+    } catch (error) {
+        showProductStatus(
+            `Live products could not load: ${error.message}. Showing the saved sample products.`,
+            "error"
+        );
+    }
+}
+
 populateCategoryFilter();
 renderProducts();
+loadProductsFromSupabase();
 
 productSearch?.addEventListener("input", renderProducts);
 categoryFilter?.addEventListener("change", renderProducts);
