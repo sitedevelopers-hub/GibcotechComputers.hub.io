@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gibcotech Computers product administration.">
+    <title>Product Admin | Gibcotech Computers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/logo.png">
+</head>
+<body class="admin-page">
+    <header class="header">
+        <div class="container nav-container">
+            <a href="index.html" class="brand">
+                <img src="images/logo.png" alt="Gibcotech Computers Logo">
+                <span>Gibcotech <strong>Computers</strong></span>
+            </a>
+            <a href="index.html" class="text-link">View website</a>
+        </div>
+    </header>
+
+    <main class="container admin-main">
+        <section class="admin-heading">
+            <span class="eyebrow">STORE MANAGEMENT</span>
+            <h1>Manage <span>Products</span></h1>
+            <p>Add products, update prices and descriptions, or replace product photos.</p>
+        </section>
+
+        <p class="admin-status" id="adminStatus" role="status" aria-live="polite" hidden></p>
+
+        <section class="admin-login-card" id="loginPanel">
+            <h2 id="authHeading">Admin sign in</h2>
+            <p id="authDescription">Sign in to manage the products shown on your website.</p>
+            <form id="loginForm" class="admin-login-form">
+                <label>
+                    Email
+                    <input type="email" name="email" autocomplete="username" maxlength="254" required>
+                </label>
+                <label>
+                    Password
+                    <input type="password" name="password" autocomplete="current-password" minlength="8" required>
+                </label>
+                <button class="btn" type="submit">Sign in</button>
+            </form>
+            <p class="admin-auth-switch" id="registerPrompt">
+                New admin? <button class="admin-text-button" type="button" id="showRegisterButton">Register</button>
+            </p>
+            <form id="registerForm" class="admin-login-form" hidden>
+                <label>
+                    Email
+                    <input type="email" name="email" autocomplete="email" maxlength="254" required>
+                </label>
+                <label>
+                    Password (at least 8 characters)
+                    <input type="password" name="password" autocomplete="new-password" minlength="8" required>
+                </label>
+                <button class="btn" type="submit">Create admin account</button>
+            </form>
+            <p class="admin-auth-switch" id="loginPrompt" hidden>
+                Already registered? <button class="admin-text-button" type="button" id="showLoginButton">Sign in</button>
+            </p>
+        </section>
+
+        <section class="admin-workspace" id="adminWorkspace" hidden>
+            <div class="admin-toolbar">
+                <h2>Products</h2>
+                <button class="btn" type="button" id="addProductButton">Add product</button>
+                <button class="btn btn-outline admin-logout" type="button" id="logoutButton">Sign out</button>
+            </div>
+
+            <form class="admin-product-form" id="productForm" hidden>
+                <h3 id="productFormTitle">Add a product</h3>
+                <input type="hidden" name="id">
+                <div class="admin-form-grid">
+                    <label>
+                        Product name
+                        <input type="text" name="name" maxlength="120" required>
+                    </label>
+                    <label>
+                        Category
+                        <input type="text" name="category" maxlength="60" list="productCategories" required>
+                        <datalist id="productCategories"></datalist>
+                    </label>
+                    <label>
+                        Price (KSh)
+                        <input type="number" name="price" min="0" step="0.01" required>
+                    </label>
+                    <label class="admin-image-field">
+                        Product photo
+                        <input type="file" name="image" accept="image/png,image/jpeg,image/webp">
+                        <span class="admin-help">PNG, JPG or WebP; maximum 5 MB. Choose a new photo to replace the current one.</span>
+                    </label>
+                    <label class="admin-description-field">
+                        Description
+                        <textarea name="description" rows="3" maxlength="1000"></textarea>
+                    </label>
+                </div>
+                <div class="admin-image-preview-wrap" id="imagePreviewWrap" hidden>
+                    <img id="imagePreview" alt="Product photo preview">
+                </div>
+                <div class="admin-form-actions">
+                    <button class="btn" type="submit" id="saveProductButton">Save product</button>
+                    <button class="btn btn-outline" type="button" id="cancelProductButton">Cancel</button>
+                </div>
+            </form>
+
+            <div class="admin-product-list" id="adminProductList" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <script src="supabase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
