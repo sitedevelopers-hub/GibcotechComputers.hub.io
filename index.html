@@ -184,6 +184,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     <!-- Products are loaded by script.js -->
                 </div>
 
+                <p class="product-status" id="productStatus" role="status" aria-live="polite" hidden></p>
+
                 <p class="demo-note">
                     Product examples are for demonstration. Confirm availability
                     and prices with us on WhatsApp.
@@ -266,6 +268,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <footer class="footer">
         <div class="container footer-content">
             <p>© <span id="currentYear"></span> Gibcotech Computers. All rights reserved.</p>
+            <a href="admin.html">Product admin</a>
             <a href="#home">Back to top ↑</a>
         </div>
     </footer>
@@ -273,6 +276,8 @@ document.addEventListener("DOMContentLoaded", function () {
     <a href="#" class="floating-whatsapp whatsapp-link"
        aria-label="Contact Gibcotech Computers on WhatsApp">☏</a>
 
+    <script src="supabase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
 </body>
 </html>
