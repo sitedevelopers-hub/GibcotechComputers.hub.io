@@ -360,11 +360,6 @@ h2 span {
   }
 }
 
-.hero-showcase:hover .showcase-track,
-.hero-showcase:focus-within .showcase-track {
-  animation-play-state: paused;
-}
-
 .hero-showcase .showcase-card {
   flex: 0 0 clamp(160px, 17vw, 195px);
   aspect-ratio: 16 / 10;
@@ -1205,8 +1200,8 @@ h2 span {
   .hero-grid {
     grid-template-areas:
       "content"
-      "showcase"
-      "image";
+      "image"
+      "showcase";
   }
 
   .hero h1 {
@@ -1223,10 +1218,6 @@ h2 span {
 
   .hero-showcase {
     margin-top: 0;
-  }
-
-  .hero-showcase .showcase-card {
-    flex-basis: min(62vw, 210px);
   }
 
   .floating-card {
