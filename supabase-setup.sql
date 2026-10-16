@@ -8,7 +8,7 @@ create table if not exists public.admin_users (
 alter table public.admin_users enable row level security;
 revoke all on public.admin_users from anon, authenticated;
 
-create or replace function public.enforce_two_admin_limit()
+create or replace function public.enforce_admin_limit()
 returns trigger
 language plpgsql
 security definer
@@ -17,8 +17,8 @@ as $$
 begin
     perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtext('gibcotech-admin-limit'));
 
-    if (select count(*) from public.admin_users) >= 2 then
-        raise exception 'Only two administrator accounts are allowed';
+    if (select count(*) from public.admin_users) >= 3 then
+        raise exception 'Only three administrator accounts are allowed';
     end if;
 
     return new;
@@ -26,11 +26,13 @@ end;
 $$;
 
 drop trigger if exists admin_users_two_account_limit on public.admin_users;
-create trigger admin_users_two_account_limit
+drop trigger if exists admin_users_three_account_limit on public.admin_users;
+create trigger admin_users_three_account_limit
 before insert on public.admin_users
-for each row execute function public.enforce_two_admin_limit();
+for each row execute function public.enforce_admin_limit();
 
-revoke all on function public.enforce_two_admin_limit() from public, anon, authenticated;
+revoke all on function public.enforce_admin_limit() from public, anon, authenticated;
+drop function if exists public.enforce_two_admin_limit();
 
 create or replace function public.register_new_auth_user_as_admin()
 returns trigger
@@ -62,7 +64,7 @@ where not exists (
 order by users.created_at, users.id
 limit greatest(
     0,
-    2 - (select count(*) from public.admin_users)
+    3 - (select count(*) from public.admin_users)
 )
 on conflict (user_id) do nothing;
 
