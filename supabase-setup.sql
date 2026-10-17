@@ -34,39 +34,8 @@ for each row execute function public.enforce_admin_limit();
 revoke all on function public.enforce_admin_limit() from public, anon, authenticated;
 drop function if exists public.enforce_two_admin_limit();
 
-create or replace function public.register_new_auth_user_as_admin()
-returns trigger
-language plpgsql
-security definer
-set search_path = ''
-as $$
-begin
-    insert into public.admin_users (user_id) values (new.id);
-    return new;
-end;
-$$;
-
-revoke all on function public.register_new_auth_user_as_admin() from public, anon, authenticated;
-
 drop trigger if exists register_new_auth_user_as_admin on auth.users;
-create trigger register_new_auth_user_as_admin
-after insert on auth.users
-for each row execute function public.register_new_auth_user_as_admin();
-
-insert into public.admin_users (user_id)
-select users.id
-from auth.users as users
-where not exists (
-    select 1
-    from public.admin_users as admins
-    where admins.user_id = users.id
-)
-order by users.created_at, users.id
-limit greatest(
-    0,
-    3 - (select count(*) from public.admin_users)
-)
-on conflict (user_id) do nothing;
+drop function if exists public.register_new_auth_user_as_admin();
 
 drop policy if exists "Admins can read their own admin record" on public.admin_users;
 create policy "Admins can read their own admin record"
