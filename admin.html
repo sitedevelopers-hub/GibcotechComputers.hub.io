@@ -23,14 +23,13 @@
         <section class="admin-heading">
             <span class="eyebrow">STORE MANAGEMENT</span>
             <h1>Manage <span>Products</span></h1>
-            <p>Add products, update prices and descriptions, or replace product photos.</p>
         </section>
 
         <p class="admin-status" id="adminStatus" role="status" aria-live="polite" hidden></p>
 
         <section class="admin-login-card" id="loginPanel">
             <h2 id="authHeading">Admin sign in</h2>
-            <p id="authDescription">Sign in to manage the products shown on your website.</p>
+            <p>Sign in with an administrator account approved by the store owner.</p>
             <form id="loginForm" class="admin-login-form">
                 <label>
                     Email
@@ -42,23 +41,6 @@
                 </label>
                 <button class="btn" type="submit">Sign in</button>
             </form>
-            <p class="admin-auth-switch" id="registerPrompt">
-                New admin? <button class="admin-text-button" type="button" id="showRegisterButton">Register</button>
-            </p>
-            <form id="registerForm" class="admin-login-form" hidden>
-                <label>
-                    Email
-                    <input type="email" name="email" autocomplete="email" maxlength="254" required>
-                </label>
-                <label>
-                    Password (at least 8 characters)
-                    <input type="password" name="password" autocomplete="new-password" minlength="8" required>
-                </label>
-                <button class="btn" type="submit">Create admin account</button>
-            </form>
-            <p class="admin-auth-switch" id="loginPrompt" hidden>
-                Already registered? <button class="admin-text-button" type="button" id="showLoginButton">Sign in</button>
-            </p>
         </section>
 
         <section class="admin-workspace" id="adminWorkspace" hidden>
