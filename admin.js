@@ -3,13 +3,6 @@ const adminStatus = document.getElementById("adminStatus");
 const loginPanel = document.getElementById("loginPanel");
 const adminWorkspace = document.getElementById("adminWorkspace");
 const loginForm = document.getElementById("loginForm");
-const registerForm = document.getElementById("registerForm");
-const authHeading = document.getElementById("authHeading");
-const authDescription = document.getElementById("authDescription");
-const registerPrompt = document.getElementById("registerPrompt");
-const loginPrompt = document.getElementById("loginPrompt");
-const showRegisterButton = document.getElementById("showRegisterButton");
-const showLoginButton = document.getElementById("showLoginButton");
 const productForm = document.getElementById("productForm");
 const productList = document.getElementById("adminProductList");
 const addProductButton = document.getElementById("addProductButton");
@@ -33,26 +26,12 @@ function showStatus(message, type = "info") {
     adminStatus.hidden = !message;
 }
 
-function setAuthMode(mode) {
-    const registering = mode === "register";
-    loginForm.hidden = registering;
-    registerPrompt.hidden = registering;
-    registerForm.hidden = !registering;
-    loginPrompt.hidden = !registering;
-    authHeading.textContent = registering ? "Create admin account" : "Admin sign in";
-    authDescription.textContent = registering
-        ? "Create an account to manage the products shown on your website."
-        : "Sign in to manage the products shown on your website.";
-    showStatus("");
-}
-
 function setBusy(isBusy) {
     saveProductButton.disabled = isBusy;
     saveProductButton.textContent = isBusy ? "Saving..." : "Save product";
     addProductButton.disabled = isBusy;
     logoutButton.disabled = isBusy;
     loginForm.querySelector("button").disabled = isBusy;
-    registerForm.querySelector("button").disabled = isBusy;
 }
 
 function getStoragePath(imageUrl) {
@@ -367,11 +346,9 @@ async function deleteProduct(product) {
 if (!supabaseConfig?.url || !supabaseConfig?.anonKey) {
     showStatus("Connect this site to Supabase first. Follow the setup steps in SUPABASE_SETUP.md.", "error");
     loginForm.querySelector("button").disabled = true;
-    registerForm.querySelector("button").disabled = true;
 } else if (!window.supabase?.createClient) {
     showStatus("The Supabase client could not load. Check your internet connection and reload this page.", "error");
     loginForm.querySelector("button").disabled = true;
-    registerForm.querySelector("button").disabled = true;
 } else {
     supabaseClient = window.supabase.createClient(
         supabaseConfig.url,
@@ -404,50 +381,6 @@ if (!supabaseConfig?.url || !supabaseConfig?.anonKey) {
         }
     });
 
-    registerForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        showStatus("Creating your admin account...");
-
-        const formData = new FormData(registerForm);
-        const email = String(formData.get("email") || "").trim();
-        const password = String(formData.get("password") || "");
-
-        if (password.length < 8) {
-            showStatus("Use a password with at least 8 characters.", "error");
-            return;
-        }
-
-        registerForm.querySelector("button").disabled = true;
-        try {
-            const { data, error } = await supabaseClient.auth.signUp({
-                email,
-                password,
-                options: {
-                    emailRedirectTo: new URL("admin.html", window.location.href).href
-                }
-            });
-
-            if (error) throw error;
-
-            if (data.session && data.user) {
-                await verifyAdmin(data.user);
-                registerForm.reset();
-                return;
-            }
-
-            registerForm.reset();
-            setAuthMode("login");
-            showStatus(
-                "Account created. Check your email for a confirmation link, then return here to sign in. If you do not want email verification, disable Confirm email in Supabase Authentication settings.",
-                "success"
-            );
-        } catch (error) {
-            showStatus(`Could not create the admin account: ${error.message}`, "error");
-        } finally {
-            registerForm.querySelector("button").disabled = false;
-        }
-    });
-
     supabaseClient.auth.getSession().then(async ({ data, error }) => {
         if (error) throw error;
         if (data.session) {
@@ -457,9 +390,6 @@ if (!supabaseConfig?.url || !supabaseConfig?.anonKey) {
         showStatus(`Could not restore the admin session: ${error.message}`, "error");
     });
 }
-
-showRegisterButton.addEventListener("click", () => setAuthMode("register"));
-showLoginButton.addEventListener("click", () => setAuthMode("login"));
 
 addProductButton.addEventListener("click", () => {
     resetProductForm();
